@@ -1,0 +1,61 @@
+Данный  код написан на Python
+
+import datetime
+
+def day_of_week(day, month, year):
+    """Определяет, какой день недели соответствует указанной дате."""
+    date = datetime.datetime(year, month, day)
+    return date.strftime("%A")  # Возвращаем день недели в текстовом формате
+
+def is_leap_year(year):
+    """Определяет, является ли указанный год высокосным."""
+    return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
+
+def calculate_age(day, month, year):
+    """Определяет, сколько лет пользователю на данный момент."""
+    birth_date = datetime.datetime(year, month, day)
+    today = datetime.datetime.now()
+    age = today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
+    return age
+
+def format_birth_date(day, month, year):
+    """Форматирует дату рождения в виде звездочек."""
+    day_str = f"{day:02}"
+    month_str = f"{month:02}"
+    year_str = f"{year}"
+
+    # Форматируем как * для каждой цифры
+    masked_day = ' '.join('*' for _ in day_str)
+    masked_month = ' '.join('*' for _ in month_str)
+    masked_year = ' '.join('*' for _ in year_str)
+
+return f"{masked_day} {masked_year}"
+
+def main():
+    # Запрос данных у пользователя
+    day = int(input("Введите день рождения (1-31): "))
+    month = int(input("Введите месяц рождения (1-12): "))
+    year = int(input("Введите год рождения (например, 1990): "))
+
+    # Определяем день недели для этой даты
+    week_day = day_of_week(day, month, year)
+    print(f"День недели вашего рождения: {week_day}")
+
+    # Проверка, является ли год високосным
+    leap_year = is_leap_year(year)
+    if leap_year:
+        print(f"{year} год является високосным.")
+    else:
+        print(f"{year} год не является високосным.")
+
+    # Рассчитываем возраст пользователя
+    age = calculate_age(day, month, year)
+print(f"Вам сейчас лет.")
+
+    # Форматируем дату рождения
+    formatted_date = format_birth_date(day, month, year)
+    print("Ваша дата рождения:")
+    print(formatted_date)
+
+if __name__ == "__main__":
+    main()
